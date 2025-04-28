@@ -4,14 +4,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 export const Route = createRootRoute({
   component: RootComponent,
-  notFoundComponent: () => {
-    return (
-      <div>
-        <p>This is the notFoundComponent configured on root route</p>
-        <Link to="/">Start Over</Link>
-      </div>
-    )
-  },
+  notFoundComponent: () => "This _root.notFoundComponent is not shown"
 })
 
 function RootComponent() {
@@ -59,6 +52,34 @@ function RootComponent() {
           }}
         >
           This Route Does Not Exist
+        </Link>
+        <Link
+          to="/$postId/works"
+          params={
+            {
+            postId: 'the-issue'
+            }
+          }
+          activeProps={{
+            className: 'font-bold',
+          }}
+        >
+          A working route
+        </Link>
+        <Link
+          // @ts-ignore to show the issue
+          to="/$postId/not-exists"
+          params={
+            {
+            // @ts-ignore to show the issue
+            postId: 'the-issue'
+            }
+          }
+          activeProps={{
+            className: 'font-bold',
+          }}
+        >
+          The Issue
         </Link>
       </div>
       <hr />
